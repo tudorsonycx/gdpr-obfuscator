@@ -44,7 +44,7 @@ def obfuscate_file(input_file: str) -> bytes:
     file_extension = file_key[file_key.rfind(".") + 1 :]
     pii_fields = input_file["pii_fields"]
 
-    s3 = boto3.client("s3", region_name="eu-west-2")
+    s3 = boto3.client("s3")
     obj = s3.get_object(Bucket=bucket, Key=file_key)
     obj_body = obj["Body"]
 
