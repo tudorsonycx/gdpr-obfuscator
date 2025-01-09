@@ -42,7 +42,6 @@ def test_obfuscate_json_file(s3_client_mock):
 
 
 def test_obfuscate_parquet_file(s3_client_mock):
-
     df = pd.DataFrame(
         {
             "Name": ["John Doe", "Jane Doe"],
@@ -80,6 +79,30 @@ def test_missing_field(s3_client_mock):
     }
     input_file = json.dumps(
         {"file_to_obfuscate": "s3://bucket/test.csv", "pii_fields": ["Phone"]}
+    )
+    with pytest.raises(KeyError):
+        obfuscate_file(input_file)
+
+    s3_client_mock.return_value.get_object.return_value = {"Body": io.BytesIO(b"[]")}
+    input_file = json.dumps(
+        {"file_to_obfuscate": "s3://bucket/test.json", "pii_fields": ["Phone"]}
+    )
+    with pytest.raises(KeyError):
+        obfuscate_file(input_file)
+
+    df = pd.DataFrame(
+        {
+            "Name": ["John Doe", "Jane Doe"],
+            "Email": ["john@example.com", "jane@example.com"],
+        }
+    )
+    buf = io.BytesIO()
+    df.to_parquet(buf, index=False)
+    buf.seek(0)
+
+    s3_client_mock.return_value.get_object.return_value = {"Body": buf}
+    input_file = json.dumps(
+        {"file_to_obfuscate": "s3://bucket/test.parquet", "pii_fields": ["Phone"]}
     )
     with pytest.raises(KeyError):
         obfuscate_file(input_file)
