@@ -6,6 +6,28 @@ import json
 
 
 def obfuscate_file(input_file: str) -> bytes:
+    """
+    Obfuscates the specified fields in a file stored in an S3 bucket.
+
+    The input file must be a JSON string containing the following keys:
+    - "file_to_obfuscate": A string in the format 's3://<bucket>/<key>.<extension>'
+      where <extension> is one of 'csv', 'json', or 'parquet'.
+    - "pii_fields": A list of strings representing the fields to be obfuscated.
+
+    The function retrieves the file from the specified S3 bucket, obfuscates the
+    specified fields by replacing their values with '*', and returns the obfuscated
+    file as bytes.
+
+    Args:
+        input_file (str): A JSON string containing the file details and fields to obfuscate.
+
+    Returns:
+        bytes: The obfuscated file content.
+
+    Raises:
+        ValueError: If the file_to_obfuscate is not in the correct format.
+        KeyError: If any of the specified fields are not found in the file.
+    """
     input_file = json.loads(input_file)
     file_to_obfuscate = input_file["file_to_obfuscate"]
     if not (
