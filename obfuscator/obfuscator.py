@@ -76,4 +76,3 @@ def obfuscate_file(input_file: str) -> bytes:
         df.to_parquet(buf, index=False)
 
     return buf.getvalue()
-
