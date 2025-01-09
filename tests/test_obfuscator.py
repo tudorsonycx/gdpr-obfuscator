@@ -1,5 +1,4 @@
 import pytest
-from unittest.mock import patch
 from moto import mock_aws
 import boto3
 from obfuscator.obfuscator import obfuscate_file
