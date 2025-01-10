@@ -1,7 +1,7 @@
 import pytest
 from moto import mock_aws
 import boto3
-from obfuscator.obfuscator import obfuscate_file
+from gdpr_obfuscator import obfuscate_file
 import pandas as pd
 from pandas.testing import assert_frame_equal
 import json
