@@ -114,3 +114,12 @@ def test_missing_field(create_files):
     )
     with pytest.raises(KeyError):
         obfuscate_file(input_file)
+
+
+def test_missing_json_keys():
+    input_file = json.dumps(
+        {"file_to_obfuscat": "s3://test-bucket/test.csv", "pii_fields": ["Phone"]}
+    )
+
+    with pytest.raises(KeyError):
+        obfuscate_file(input_file)
