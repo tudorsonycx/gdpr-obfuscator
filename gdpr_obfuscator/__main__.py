@@ -1,7 +1,8 @@
 import argparse
 from .obfuscator import obfuscate_file
-import pandas as pd
-import io
+import json
+import logging
+import sys
 
 
 def main():
@@ -24,10 +25,25 @@ def main():
     )
     args = parser.parse_args()
 
-    obfuscated_file_bytes = obfuscate_file(args.file)
-    extension = args.file[]
-    print(extension)
-    print(pd.read_csv(io.BytesIO(obfuscated_file_bytes)))
+    try:
+        file_dict = json.loads(args.file)
+    except json.JSONDecodeError:
+        logging.error("The input file must be a valid JSON string.")
+        sys.exit(1)
+
+    try:
+        obfuscated_file_bytes = obfuscate_file(args.file)
+    except Exception as e:
+        logging.error(str(e))
+        sys.exit(1)
+
+    extension = file_dict["file_to_obfuscate"][
+        file_dict["file_to_obfuscate"].rfind(".") + 1 :
+    ]
+
+    file_name = f"obfuscated.{extension}"
+    with open(file_name, "wb") as f:
+        f.write(obfuscated_file_bytes)
 
 
 if __name__ == "__main__":
