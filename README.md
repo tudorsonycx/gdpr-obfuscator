@@ -23,7 +23,7 @@ GDPR Obfuscator is a tool designed to obfuscate personally identifiable informat
 
 ## Installation
 
-### For Developers
+### Method 1
 1. Clone the repository:
     ```sh
     git clone https://github.com/tudorsonycx/gdpr-obfuscator.git
@@ -59,7 +59,7 @@ GDPR Obfuscator is a tool designed to obfuscate personally identifiable informat
         pip install /path/to/gdpr-obfuscator
         ```
 
-### For Users
+### Method 2
 1. Install the package directly from the repository:
     ```sh
     pip install git+https://github.com/tudorsonycx/gdpr-obfuscator.git
