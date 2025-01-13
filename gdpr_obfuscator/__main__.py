@@ -7,7 +7,7 @@ import sys
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Obfuscate PII fields in S3 files.",
+        description="Obfuscate PII fields in S3 files and create an obfuscated file.",
         formatter_class=argparse.RawTextHelpFormatter,
     )
     parser.add_argument(
@@ -18,9 +18,10 @@ def main():
         help=(
             "A JSON string specifying the S3 file to obfuscate. "
             "The JSON must contain the following keys:\n"
-            "- 'file_to_obfuscate': A string in the format 's3://<bucket>/<key>.<extension>' "
+            "- 'file_to_obfuscate': A string in the format 's3://<bucket>/<key>.<extension>'\n"
             "where <extension> is one of 'csv', 'json', or 'parquet'.\n"
-            "- 'pii_fields': A list of strings representing the fields to be obfuscated."
+            "- 'pii_fields': A list of strings representing the fields to be obfuscated.\n"
+            "The command will create an obfuscated file with the same extension."
         ),
     )
     args = parser.parse_args()
