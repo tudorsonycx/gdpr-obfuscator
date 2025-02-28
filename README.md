@@ -85,14 +85,13 @@ If you want to use the package in your own Python code, you can import the modul
 
 ```python
 # Import the obfuscator module
-from gdpr_obfuscator import obfuscate
+from gdpr_obfuscator import obfuscate_file
 
-# Define the file to obfuscate and the PII fields
-file_to_obfuscate = "s3://<bucket>/<key>.<extension>"
-pii_fields = ["field1", "field2"]
+# Define the json_string containing information about the file to obfuscate
+json_string = '{"file_to_obfuscate": "s3://<bucket>/<key>.<extension>", "pii_fields": ["field1", "field2"]}'
 
 # Call the obfuscate function
-obfuscate(file_to_obfuscate, pii_fields)
+obfuscated_file_bytes = obfuscate_file(json_string)
 ```
 
 ## License
