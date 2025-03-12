@@ -64,6 +64,14 @@ GDPR Obfuscator is a tool designed to obfuscate personally identifiable informat
     ```sh
     pip install git+https://github.com/tudorsonycx/gdpr-obfuscator.git
     ```
+NOTE: If you want to run pytest, and you haven't installed the package, you have to export PYTHONPATH to the current directory,
+so that pytest can find the gdpr_obfuscator package:
+```sh
+# Make sure you are in the root directory of the project before running this command
+export PYTHONPATH=$(pwd)
+# Run pytest
+pytest
+```
 
 ## Usage
 
